@@ -40,3 +40,25 @@ describe('/POST endpoint', () => {
     }
   })
 })
+
+describe('/GET endpoint', () => {
+  it('should return status code 200', async () => {
+    try {
+    const response = await request(server).get('/games');
+    expect(response.status).toBe(200);
+    } catch(err) {
+      console.log(err);
+    }
+  })
+  it('should return an array', async () => {
+    try {
+    const response = await request(server).get('/games');
+      console.log(response.body);
+      
+      expect(response.body).toEqual(expect.arrayContaining());
+      
+    } catch(err) {
+      console.log(err);
+    }
+  })
+})
