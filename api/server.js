@@ -51,6 +51,8 @@ server.post('/games', (req, res) => {
 
   if (!title || !genre) {
     res.status(422).send({ error: 'Game must have a title and release year!' });
+  } else if (games.find(g => g.title === title)) {
+    res.status(400).send({ error: 'A game with that title already exists' });
   } else {
     games.push({id: id++, ...req.body});
     res.status(201).send({ message: 'Game created' });
