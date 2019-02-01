@@ -78,3 +78,15 @@ describe('/GET/:id endpoint', () => {
     expect(response.status).toBe(200);
   })
 })
+
+describe('/DELETE/:id endpoint', () => {
+  it('should return a 404 if the game does not exist', async () => {
+    const response = await request(server).delete('/games/15');
+    expect(response.status).toBe(404);
+    expect(response.body).toEqual({error: 'invalid id'})
+  });
+  it('should delete the game and return 200 if successful', async () => {
+    const response = await request(server).delete('/games/1');
+    expect(response.status).toBe(200);
+  })
+})

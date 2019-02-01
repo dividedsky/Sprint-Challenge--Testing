@@ -5,7 +5,7 @@ server.use(express.json());
 
 let id = 2;
 
-const games = [
+let games = [
   {
     id: 1,
     title: 'Test Game',
@@ -23,14 +23,26 @@ server.get('/games', (req, res) => {
 
 server.get('/games/:id', (req, res) => {
   const game = games.filter(g => g.id == req.params.id)[0];
-  console.log(game);
-  
-  
-  
   if (!game) {
     res.status(404).json({error: 'invalid id'})
   } else {
     res.status(200).json(game);
+  }
+})
+
+server.delete('/games/:id', (req, res) => {
+  const game = games.filter(g => g.id == req.params.id)[0];
+  console.log(game);
+  
+  if(!game) {
+    console.log('not');
+    
+    res.status(404).json({error: 'invalid id'});
+  } else {
+    games = games.filter(g => g.id != req.params.id);
+    console.log(games);
+    
+    res.status(200).json({message: 'game deleted'})
   }
 })
 
